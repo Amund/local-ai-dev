@@ -1,0 +1,18 @@
+services:
+    app:
+        container_name: llama-swap
+        image: ghcr.io/mostlygeek/llama-swap:vulkan
+        restart: unless-stopped
+        ports:
+            - 9090:8080
+        networks:
+            - dev
+        volumes:
+            - ~/models:/root/.cache/llama.cpp/
+            - ./config.yml:/app/config.yaml
+        devices:
+            - /dev/dri
+
+networks:
+    dev:
+        external: true

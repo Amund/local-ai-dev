@@ -1,0 +1,41 @@
+name: Qwen3 Local
+version: 1.0.0
+schema: v1
+
+models:
+  - name: Qwen3 Coder
+    provider: openai
+    model: qwen3-a3b-coder
+    apiBase: http://127.0.0.1:9090/v1
+    roles:
+      - chat
+      - edit
+      - apply
+    capabilities:
+      - tool_use
+  - name: Qwen3 Think
+    provider: openai
+    model: qwen3-a3b-think
+    apiBase: http://127.0.0.1:9090/v1
+    roles:
+      - chat
+    capabilities:
+      - tool_use
+  - name: Qwen3 4b
+    provider: openai
+    model: qwen3-4b
+    apiBase: http://127.0.0.1:9090/v1
+    roles:
+      - autocomplete
+      - chat
+      - edit
+      - apply
+
+context:
+  - provider: code
+  - provider: docs
+  - provider: diff
+  - provider: terminal
+  - provider: problems
+  - provider: folder
+  - provider: codebase
