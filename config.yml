@@ -2,76 +2,92 @@ healthCheckTimeout: 3600
 logRequests: true
 metricsMaxInMemory: 1000
 filters:
-  strip_params: "temperature, top_p, top_k"
+    strip_params: "temperature, top_p, top_k"
 
 models:
-  "qwen3-a3b-think":
-      proxy: "http://127.0.0.1:9999"
-      cmd: >
-          /app/llama-server
-          -hf unsloth/Qwen3-30B-A3B-Thinking-2507-GGUF:Q4_K_XL
-          --port 9999
-          --threads 8
-          --cpu-moe
-          --n-gpu-layers 99
-          --jinja
-          --flash-attn
-          --ctx-size 65536
-          --temp 0.6
-          --top-p 0.95
-          --top-k 20
-          --min-p 0
+    qwen3-a3b-think:
+        proxy: http://127.0.0.1:9999
+        cmd: >
+            /app/llama-server
+            -m /root/.cache/llama.cpp/unsloth--Qwen3-30B-A3B-Thinking-2507-GGUF
+            --port 9999
+            --threads 8
+            --cpu-moe
+            --n-gpu-layers 99
+            --jinja
+            --flash-attn
+            --ctx-size 65536
+            --temp 0.6
+            --top-p 0.95
+            --top-k 20
+            --min-p 0
 
-  "qwen3-a3b-coder":
-      proxy: "http://127.0.0.1:9999"
-      cmd: >
-          /app/llama-server
-          -hf unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF:Q4_K_XL
-          --port 9999
-          --threads 8
-          --cpu-moe
-          --n-gpu-layers 99
-          --jinja
-          --flash-attn
-          --ctx-size 32768
-          --temp 0.7
-          --top-p 0.8
-          --top-k 20
-          --repeat-penalty 1.05
+    qwen3-a3b-coder:
+        proxy: http://127.0.0.1:9999
+        cmd: >
+            /app/llama-server
+            -m /root/.cache/llama.cpp/unsloth--Qwen3-Coder-30B-A3B-Instruct-GGUF
+            --port 9999
+            --threads 8
+            --cpu-moe
+            --n-gpu-layers 99
+            --jinja
+            --flash-attn
+            --ctx-size 32768
+            --temp 0.7
+            --top-p 0.8
+            --top-k 20
+            --repeat-penalty 1.05
 
-  "qwen3-4b":
-      proxy: "http://127.0.0.1:9999"
-      cmd: >
-          /app/llama-server
-          -hf unsloth/Qwen3-4B-Instruct-2507-GGUF
-          --port 9999
-          --threads 8
-          --n-gpu-layers 99
-          --flash-attn
-          --ctx-size 32768
-          --temp 0.7
-          --top-p 0.8
-          --top-k 20
-          --min-p 0
+    qwen3-4b:
+        proxy: http://127.0.0.1:9999
+        cmd: >
+            /app/llama-server
+            -m /root/.cache/llama.cpp/unsloth--Qwen3-4B-Instruct-2507-GGUF
+            --port 9999
+            --threads 8
+            --n-gpu-layers 99
+            --flash-attn
+            --ctx-size 32768
+            --temp 0.7
+            --top-p 0.8
+            --top-k 20
+            --min-p 0
 
-  "qwen3-embed":
-      proxy: "http://127.0.0.1:9999"
-      cmd: >
-          /app/llama-server
-          -hf Qwen/Qwen3-Embedding-0.6B
-          --port 9999
-          --embedding
-          --pooling last
-          --ubatch-size 8192
-          --verbose-prompt
-          --ctx-size 8192
+    qwen3-embed:
+        proxy: http://127.0.0.1:9999
+        cmd: >
+            /app/llama-server
+            -m /root/.cache/llama.cpp/Qwen--Qwen3-Embedding-0.6B
+            --port 9999
+            --embedding
+            --pooling last
+            --ubatch-size 8192
+            --verbose-prompt
+            --ctx-size 8192
+            --no-mmap
 
-  "qwen3-rerank":
-      proxy: "http://127.0.0.1:9999"
-      cmd: >
-          /app/llama-server
-          -hf Qwen/Qwen3-Reranker-0.6B
-          --embedding
-          --pooling last
-          --ubatch-size 8192
-          --verbose-prompt
+    qwen3-rerank:
+        proxy: http://127.0.0.1:9999
+        cmd: >
+            /app/llama-server
+            -m /root/.cache/llama.cpp/Qwen--Qwen3-Reranker-0.6B
+            --port 9999
+            --reranking
+            --pooling last
+            --ctx-size 8192
+            --no-mmap
+
+groups:
+    always:
+        persistent: true
+        swap: false
+        exclusive: false
+        members:
+            - qwen3-embed
+            - qwen3-rerank
+
+hooks:
+    on_startup:
+        preload:
+            - always

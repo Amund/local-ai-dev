@@ -31,10 +31,11 @@ download-models:
 	@wget -qc --show-progress https://huggingface.co/unsloth/Qwen3-30B-A3B-Thinking-2507-GGUF/resolve/main/Qwen3-30B-A3B-Thinking-2507-UD-Q4_K_XL.gguf?download=true -O ./models/unsloth--Qwen3-30B-A3B-Thinking-2507-GGUF
 	@wget -qc --show-progress https://huggingface.co/unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF/resolve/main/Qwen3-Coder-30B-A3B-Instruct-UD-Q4_K_XL.gguf?download=true -O ./models/unsloth--Qwen3-Coder-30B-A3B-Instruct-GGUF
 	@wget -qc --show-progress https://huggingface.co/unsloth/Qwen3-4B-Instruct-2507-GGUF/resolve/main/Qwen3-4B-Instruct-2507-Q4_K_M.gguf?download=true -O ./models/unsloth--Qwen3-4B-Instruct-2507-GGUF
-	@wget -qc --show-progress https://huggingface.co/Qwen/Qwen3-Embedding-0.6B/resolve/main/model.safetensors?download=true -O ./models/Qwen--Qwen3-Embedding-0.6B
-	@wget -qc --show-progress https://huggingface.co/Qwen/Qwen3-Reranker-0.6B/resolve/main/model.safetensors?download=true -O ./models/Qwen--Qwen3-Reranker-0.6B
+	@wget -qc --show-progress https://huggingface.co/Qwen/Qwen3-Embedding-0.6B-GGUF/resolve/main/Qwen3-Embedding-0.6B-Q8_0.gguf?download=true -O ./models/Qwen--Qwen3-Embedding-0.6B
+	@wget -qc --show-progress https://huggingface.co/mradermacher/Qwen3-Reranker-0.6B-GGUF/resolve/main/Qwen3-Reranker-0.6B.Q8_0.gguf?download=true -O ./models/Qwen--Qwen3-Reranker-0.6B
 
 copy-agent:
-	@install -D -m 664 qwen-local.yaml ~/.continue/assistants/qwen-local.yaml && echo Agent copied 
+	@rsync -cavz ./config/ ~/.continue && echo Agent copied
+
 %:
 	@:

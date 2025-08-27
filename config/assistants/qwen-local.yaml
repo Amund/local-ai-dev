@@ -30,6 +30,18 @@ models:
       - chat
       - edit
       - apply
+  - name: Qwen3 embed
+    provider: openai
+    model: qwen3-embed
+    apiBase: http://127.0.0.1:9090/v1
+    roles:
+      - embed
+  # - name: Qwen3 rerank
+  #   provider: openai
+  #   model: qwen3-rerank
+  #   apiBase: http://127.0.0.1:9090/v1
+  #   roles:
+  #     - rerank
 
 context:
   - provider: code

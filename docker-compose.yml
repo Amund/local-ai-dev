@@ -8,8 +8,8 @@ services:
         networks:
             - dev
         volumes:
-            - ~/models:/root/.cache/llama.cpp/
-            - ./config.yml:/app/config.yaml
+            - ./models:/root/.cache/llama.cpp/:ro
+            - ./config.yml:/app/config.yaml:ro
         devices:
             - /dev/dri
 

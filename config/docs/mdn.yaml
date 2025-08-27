@@ -1,0 +1,6 @@
+name: MDN
+version: 0.0.1
+schema: v1
+docs:
+  - name: MDN
+    startUrl: https://developer.mozilla.org/fr/
