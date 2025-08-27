@@ -1,0 +1,36 @@
+name: DeepSeek API
+version: 1.0.0
+schema: v1
+
+models:
+  - name: DeepSeek Think
+    provider: deepseek
+    model: deepseek-reasoner
+    apiKey: ${{ secrets.DEEPSEEK_API_KEY }}
+    roles:
+      - chat
+    defaultCompletionOptions:
+      contextLength: 128000
+      temperature: 0
+  - name: DeepSeek Chat
+    provider: deepseek
+    model: deepseek-chat
+    apiKey: ${{ secrets.DEEPSEEK_API_KEY }}
+    roles:
+      - chat
+      - edit
+      - apply
+      - summarize
+      - autocomplete
+    defaultCompletionOptions:
+      contextLength: 128000
+      temperature: 0
+
+context:
+  - provider: code
+  - provider: docs
+  - provider: diff
+  - provider: terminal
+  - provider: problems
+  - provider: folder
+  - provider: codebase
