@@ -1,0 +1,51 @@
+name: Mistral API
+version: 1.0.0
+schema: v1
+
+models:
+  - name: Mistral Large
+    provider: mistral
+    model: mistral-large-2411
+    apiKey: ${{ secrets.MISTRAL_API_KEY }}
+    roles:
+      - chat
+    defaultCompletionOptions:
+      contextLength: 131000
+  - name: Devstral Medium
+    provider: mistral
+    model: devstral-medium-latest
+    apiKey: ${{ secrets.MISTRAL_API_KEY }}
+    roles:
+      - chat
+      - edit
+      - apply
+    defaultCompletionOptions:
+      contextLength: 256000
+    capabilities:
+      - tool_use
+  - name: Codestral
+    provider: mistral
+    model: codestral-latest
+    apiKey: ${{ secrets.MISTRAL_API_KEY }}
+    roles:
+      - autocomplete
+      - chat
+      - edit
+      - apply
+    defaultCompletionOptions:
+      contextLength: 256000
+  - name: Mistral Embed
+    provider: mistral
+    model: mistral-embed
+    apiKey: ${{ secrets.MISTRAL_API_KEY }}
+    roles:
+      - embed
+
+context:
+  - provider: code
+  - provider: docs
+  - provider: diff
+  - provider: terminal
+  - provider: problems
+  - provider: folder
+  - provider: codebase
