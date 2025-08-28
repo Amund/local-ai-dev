@@ -7,6 +7,7 @@ models:
     provider: mistral
     model: mistral-large-2411
     apiKey: ${{ secrets.MISTRAL_API_KEY }}
+    apiBase: https://api.mistral.ai/v1
     roles:
       - chat
     defaultCompletionOptions:
@@ -15,6 +16,7 @@ models:
     provider: mistral
     model: devstral-medium-latest
     apiKey: ${{ secrets.MISTRAL_API_KEY }}
+    apiBase: https://api.mistral.ai/v1
     roles:
       - chat
       - edit
@@ -26,20 +28,18 @@ models:
   - name: Codestral
     provider: mistral
     model: codestral-latest
-    apiKey: ${{ secrets.MISTRAL_API_KEY }}
+    apiKey: ${{ secrets.CODESTRAL_API_KEY }}
     roles:
       - autocomplete
-      - chat
-      - edit
-      - apply
     defaultCompletionOptions:
       contextLength: 256000
-  - name: Mistral Embed
-    provider: mistral
-    model: mistral-embed
-    apiKey: ${{ secrets.MISTRAL_API_KEY }}
-    roles:
-      - embed
+  # - name: Mistral Embed
+  #   provider: mistral
+  #   model: mistral-embed
+  #   apiKey: ${{ MISTRAL_API_KEY }}
+  #   apiBase: https://api.mistral.ai/v1
+  #   roles:
+  #     - embed
 
 context:
   - provider: code

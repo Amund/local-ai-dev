@@ -34,8 +34,11 @@ download-models:
 	@wget -qc --show-progress https://huggingface.co/Qwen/Qwen3-Embedding-0.6B-GGUF/resolve/main/Qwen3-Embedding-0.6B-Q8_0.gguf?download=true -O ./models/Qwen--Qwen3-Embedding-0.6B
 	@wget -qc --show-progress https://huggingface.co/mradermacher/Qwen3-Reranker-0.6B-GGUF/resolve/main/Qwen3-Reranker-0.6B.Q8_0.gguf?download=true -O ./models/Qwen--Qwen3-Reranker-0.6B
 
-copy-agent:
-	@rsync -cavz ./config/ ~/.continue && echo Agent copied
+sync:
+	@rsync -cavz ./config/ ~/.continue && echo Continue config synced
+
+remove-index:
+	@rm -rf ~/.continue/index && echo Continue indexes removed
 
 %:
 	@:

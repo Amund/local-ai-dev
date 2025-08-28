@@ -16,10 +16,12 @@ The project uses the following models:
 - **Qwen3-Coder-30B-A3B-Instruct**: Non-thinking MoE coder
 - **Qwen3-30B-A3B-Thinking**: Thinking MoE chat
 - **Qwen3-4B-Instruct**: Lighter fill-in-the-middle (FIM)
-- **Qwen3-Embedding-0.6B**: Embedding model
+- **Qwen3-Embedding-0.6B**: Embedding model (**TODO**)
 - **Qwen3-Reranker-0.6B**: Reranking model (**TODO**)
 
-**TODOs**: reranker has problem at this time (https://github.com/ggml-org/llama.cpp/pull/14029)
+**TODOs**:
+- embedding is functional, but response are crappy when used. More investigations needed on this.
+- reranker has problem at this time (https://github.com/ggml-org/llama.cpp/pull/14029)
 
 ## Pre-requisites
 
