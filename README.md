@@ -6,20 +6,9 @@ This is my personal AI-assisted development system with no internet connection. 
 
 ## Description
 
-This repository contains the complete configuration to run multiple Qwen3 models in parallel with [llama-swap](https://github.com/mostlygeek/llama-swap/) in a Docker container with Vulkan support. It allows you to benefit from complete AI assistance locally, without any internet connection required.
+This repository contains the complete configuration to run multiple Qwen3 models in parallel with [llama-server](https://github.com/ggml-org/llama.cpp/blob/master/tools/server/README.md) in a Docker container with Vulkan support. It allows you to benefit from complete AI assistance locally, without any internet connection required.
 
-It works not so bad on my desktop, an average computer with a 8Gb GPU. You can adjust models parameters in `config.yml` to adapt for your hardware.
-
-## Configured Models
-
-The project uses the following models:
-- **Qwen3-Coder-30B-A3B-Instruct**: Non-thinking MoE coder
-- **Qwen3-30B-A3B-Thinking**: Thinking MoE chat
-- **Qwen3-4B-Instruct**: Lighter fill-in-the-middle (FIM)
-- **Qwen3-Embedding-0.6B**: Embedding model (**TODO**)
-- **Qwen3-Reranker-0.6B**: Reranking model (**TODO**)
-
-**TODOs**: embed and reranker are downloaded and installed, but not used in continue at this time, it works without. Need to test in the future.
+It works not so bad on my desktop, an average computer with a 8Gb GPU. You can adjust models parameters in `config.ini` to adapt for your hardware.
 
 ## Pre-requisites
 
@@ -30,8 +19,17 @@ The project uses the following models:
 ## Installation
 
 - Clone this repository
-- Download models with `make download-models`
-- Copy continue agent to its global config folder with `make copy-agent`
 - Start containers with `make up`
+- Check `http://localhost:9090/` to see if the server is running and models are available. You can launch first downloads from there. Models are then cached in the `models` folder.
+- Copy continue agent to its global config folder with `make sync`
 - In vscode, open continue, change "Local Agent" to "Qwen3 local"
 - Ask something, and wait for the model's loading. Once loaded, the next response should be fast.
+
+## Update
+
+`llama.cpp` is updated frequently, so you can update the container with `make update`. Server is stopped and started again, with fresh image.
+
+## TODO
+
+- Check rocm backend support. For now, vulkan backend is faster on my machine.
+- Test a finetuned FIM model

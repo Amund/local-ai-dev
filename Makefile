@@ -10,31 +10,34 @@
 
 
 ## GESTION DES CONTAINERS
-.PHONY: up down shell shell-root logs
+.PHONY: up down restart update shell logs
 
 up: # Start up containers
 	@docker compose up -d --remove-orphans
 down: # Stop containers
 	@docker compose down -v
+restart: # Stop containers
+	@docker compose down -v && docker compose up -d --remove-orphans
+update: # Update containers with last image
+	@docker compose down -v --rmi all && docker compose up -d --remove-orphans
 shell:
 	@docker compose exec app /bin/bash
-shell-root:
-	@docker compose exec -u 0:0 app /bin/bash
 logs:
 	@docker compose logs -f
 
 
 ## OUTILS COURANTS
-.PHONY: download-models copy-agent
+.PHONY: download-models copy-agent easy-dataset
 
-download-models:
-	@wget -qc --show-progress https://huggingface.co/unsloth/Qwen3-30B-A3B-Thinking-2507-GGUF/resolve/main/Qwen3-30B-A3B-Thinking-2507-UD-Q4_K_XL.gguf?download=true -O ./models/unsloth--Qwen3-30B-A3B-Thinking-2507-GGUF
-	@wget -qc --show-progress https://huggingface.co/unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF/resolve/main/Qwen3-Coder-30B-A3B-Instruct-UD-Q4_K_XL.gguf?download=true -O ./models/unsloth--Qwen3-Coder-30B-A3B-Instruct-GGUF
-	@wget -qc --show-progress https://huggingface.co/unsloth/Qwen3-4B-Instruct-2507-GGUF/resolve/main/Qwen3-4B-Instruct-2507-Q4_K_M.gguf?download=true -O ./models/unsloth--Qwen3-4B-Instruct-2507-GGUF
-	@wget -qc --show-progress https://huggingface.co/Qwen/Qwen3-Embedding-0.6B/resolve/main/model.safetensors?download=true -O ./models/Qwen--Qwen3-Embedding-0.6B
-	@wget -qc --show-progress https://huggingface.co/Qwen/Qwen3-Reranker-0.6B/resolve/main/model.safetensors?download=true -O ./models/Qwen--Qwen3-Reranker-0.6B
+sync:
+	@rsync -cavz ./config/ ~/.continue && echo Continue config synced
 
-copy-agent:
-	@install -D -m 664 qwen-local.yaml ~/.continue/assistants/qwen-local.yaml && echo Agent copied 
+remove-index:
+	@rm -rf ~/.continue/index && echo Continue indexes removed
+
+easy-dataset:
+	@docker run -d -p 1717:1717 --name easy-dataset -v ./dataset/local-db:/app/local-db ghcr.io/conardli/easy-dataset
+# 	@docker run -d -p 1717:1717 -v ./dataset/local-db:/app/local-db -v ./dataset/prisma:/app/prisma --name easy-dataset --user 1000:1000 ghcr.io/conardli/easy-dataset
+
 %:
 	@:

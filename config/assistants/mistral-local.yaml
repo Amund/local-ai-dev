@@ -1,11 +1,11 @@
-name: Qwen3 Local
+name: Mistral local
 version: 1.0.0
 schema: v1
 
 models:
-  - name: Qwen3 Coder
+  - name: Ministral3 14B
     provider: openai
-    model: qwen3-a3b-coder
+    model: unsloth/Ministral-3-14B-Instruct-2512-GGUF
     apiBase: http://127.0.0.1:9090/v1
     roles:
       - chat
@@ -13,23 +13,32 @@ models:
       - apply
     capabilities:
       - tool_use
-  - name: Qwen3 Think
+  - name: Ministral3 8B
     provider: openai
-    model: qwen3-a3b-think
+    model: unsloth/Ministral-3-8B-Instruct-2512-GGUF
     apiBase: http://127.0.0.1:9090/v1
     roles:
       - chat
+      - edit
+      - apply
     capabilities:
       - tool_use
-  - name: Qwen3 4b
+  - name: Ministral3 3B
     provider: openai
-    model: qwen3-4b
+    model: unsloth/Ministral-3-3B-Instruct-2512-GGUF
+    apiBase: http://127.0.0.1:9090/v1
+    roles:
+      - chat
+      - edit
+      - apply
+    capabilities:
+      - tool_use
+  - name: Ministral3 FIM
+    provider: openai
+    model: unsloth/Ministral-3-3B-Instruct-2512-FIM
     apiBase: http://127.0.0.1:9090/v1
     roles:
       - autocomplete
-      - chat
-      - edit
-      - apply
 
 context:
   - provider: code

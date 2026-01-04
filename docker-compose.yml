@@ -1,17 +1,18 @@
 services:
     app:
-        container_name: llama-swap
-        image: ghcr.io/mostlygeek/llama-swap:vulkan
+        container_name: llama-server
+        image: ghcr.io/ggml-org/llama.cpp:server-vulkan
         restart: unless-stopped
         ports:
             - 9090:8080
         networks:
             - dev
         volumes:
-            - ~/models:/root/.cache/llama.cpp/
-            - ./config.yml:/app/config.yaml
+            - ./models:/root/.cache/llama.cpp/
+            - ./config.ini:/app/config.ini:ro
         devices:
             - /dev/dri
+        entrypoint: ["/app/llama-server", "--models-preset", "config.ini"]
 
 networks:
     dev:

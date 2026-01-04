@@ -1,0 +1,55 @@
+name: Qwen3 local
+version: 1.0.0
+schema: v1
+
+models:
+  - name: Qwen3 Coder 30b a3b
+    provider: openai
+    model: unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF
+    apiBase: http://127.0.0.1:9090/v1
+    roles:
+      - chat
+      - edit
+      - apply
+      - autocomplete
+    capabilities:
+      - tool_use
+  - name: Qwen3 30b a3b
+    provider: openai
+    model: unsloth/Qwen3-30B-A3B-Instruct-2507-GGUF
+    apiBase: http://127.0.0.1:9090/v1
+    roles:
+      - chat
+      - edit
+      - apply
+    capabilities:
+      - tool_use
+  - name: Qwen3 4b
+    provider: openai
+    model: unsloth/Qwen3-4B-Instruct-2507-GGUF
+    apiBase: http://127.0.0.1:9090/v1
+    roles:
+      - chat
+      - edit
+      - apply
+  - name: Qwen3 1.7b
+    provider: openai
+    model: unsloth/Qwen3-1.7B-GGUF
+    apiBase: http://127.0.0.1:9090/v1
+    roles:
+      - chat
+  - name: Qwen3 0.6b
+    provider: openai
+    model: unsloth/Qwen3-0.6B-GGUF
+    apiBase: http://127.0.0.1:9090/v1
+    roles:
+      - chat
+
+context:
+  - provider: code
+  - provider: docs
+  - provider: diff
+  - provider: terminal
+  - provider: problems
+  - provider: folder
+  - provider: codebase
