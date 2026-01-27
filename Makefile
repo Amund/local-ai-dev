@@ -30,7 +30,7 @@ logs:
 .PHONY: download-models copy-agent easy-dataset
 
 sync:
-	@rsync -cavz ./config/ ~/.continue && echo Continue config synced
+	@rsync -cavz ./assistants/ ~/.continue/assistants --delete && echo Continue config synced
 
 remove-index:
 	@rm -rf ~/.continue/index && echo Continue indexes removed
