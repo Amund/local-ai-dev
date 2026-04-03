@@ -21,13 +21,12 @@ It works not so bad on my desktop, an average computer with a 8Gb GPU. You can a
 - Clone this repository
 - Start containers with `make up`
 - Check `http://localhost:9090/` to see if the server is running and models are available. You can launch first downloads from there. Models are then cached in the `models` folder.
-- Copy continue agent to its global config folder with `make sync`
-- In vscode, open continue, change "Local Agent" to "Qwen3 local"
-- Ask something, and wait for the model's loading. Once loaded, the next response should be fast.
+- Copy opencode config to its global config folder with `make sync-opencode`
+- Copy continue agent to its global config folder with `make sync-continue`
 
 ## Update
 
-`llama.cpp` is updated frequently, so you can update the container with `make update`. Server is stopped and started again, with fresh image.
+`llama.cpp` is updated frequently, so you can update the container with `make update`. Server is stopped and started again, with fresh image. `make restart` can be used to restart the server without updating the image.
 
 ## TODO
 

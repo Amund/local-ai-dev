@@ -27,14 +27,14 @@ logs:
 
 
 ## OUTILS COURANTS
-.PHONY: download-models copy-agent easy-dataset
+.PHONY: sync-opencode sync-continue remove-index easy-dataset
 
-sync:
+sync-opencode:
+	@cp -f ./opencode/opencode.jsonc ~/.config/opencode && echo opencode config synced
+sync-continue:
 	@rsync -cavz ./assistants/ ~/.continue/assistants --delete && echo Continue config synced
-
 remove-index:
 	@rm -rf ~/.continue/index && echo Continue indexes removed
-
 easy-dataset:
 	@docker run -d -p 1717:1717 --name easy-dataset -v ./dataset/local-db:/app/local-db ghcr.io/conardli/easy-dataset
 # 	@docker run -d -p 1717:1717 -v ./dataset/local-db:/app/local-db -v ./dataset/prisma:/app/prisma --name easy-dataset --user 1000:1000 ghcr.io/conardli/easy-dataset
